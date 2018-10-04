@@ -1,6 +1,5 @@
 package com.example.student.geoquiz;
-// Nicole Snover
-// CSC200 Mobile Device Programming
+
 public class Question {
 
   private int mTextResId;

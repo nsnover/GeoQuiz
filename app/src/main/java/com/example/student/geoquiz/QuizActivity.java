@@ -1,6 +1,5 @@
 package com.example.student.geoquiz;
-//Nicole Snover
-//CSC200 Mobile Device Programming
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
