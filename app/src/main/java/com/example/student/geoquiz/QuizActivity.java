@@ -38,6 +38,7 @@ public class QuizActivity extends AppCompatActivity {
             new Question(R.string.question_tea, false)
     };
     private int mCurrentIndex=0;
+    private boolean mIsCheater;
     private int mCurrentScore=0;
 
 
@@ -157,6 +158,7 @@ public class QuizActivity extends AppCompatActivity {
                     mCurrentIndex=0;
                     mCurrentScore=0;
                 }
+                mIsCheater = false;
                 updateQuestion();
                 togglebutton();
 
@@ -180,6 +182,18 @@ public class QuizActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+
+        if (requestCode == REQUEST_CODE_CHEAT) {
+            if (data == null) {
+                return;
+            }
+            mIsCheater = CheatActivity.wasAnswerShown(data);
+        }
+
         if (requestCode==REQUEST_CODE_CHEAT) {
             if(resultCode== Activity.RESULT_OK)
 //                Toast.makeText(this,"You cheated",Toast.LENGTH_LONG).show();
