@@ -111,7 +111,10 @@ public class QuizActivity extends AppCompatActivity {
 
 
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
+//        mScoreTextView = (TextView) findViewById(R.id.score_text_view);
         updateQuestion();
+
+
 
 
         mCheatButton = (Button) findViewById(R.id.cheat_button);
@@ -197,6 +200,8 @@ public class QuizActivity extends AppCompatActivity {
 //                Toast.makeText(this,"You cheated",Toast.LENGTH_LONG).show();
                 Toast.makeText(this, "" + data.getBooleanExtra("EXTRA_ANSWER_SHOWN", false), Toast.LENGTH_LONG).show();
         }
+//        Code for reset button, calling reset()
+
     }
 
     private void updateQuestion() {
