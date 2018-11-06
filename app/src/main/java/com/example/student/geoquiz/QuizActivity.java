@@ -3,6 +3,7 @@ package com.example.student.geoquiz;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button mNextButton;
     private Button mPreviousButton;
     private Button mCheatButton;
+    private Button mCheckScore;
     private TextView mQuestionTextView;
     private Question[] mQuestionBank=new Question[] {
             new Question(R.string.question_australia, true),
@@ -40,7 +42,6 @@ public class QuizActivity extends AppCompatActivity {
     private int mCurrentIndex=0;
     private boolean mIsCheater;
     private int mCurrentScore=0;
-
 
 
     @Override
@@ -133,6 +134,7 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 checkAnswer(true);
                 togglebutton();
+                performNextAction();
 
             }
         });
@@ -143,29 +145,19 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                        checkAnswer(false);
                        togglebutton();
+                       performNextAction();
             }
         });
 
-        mNextButton = (Button) findViewById(R.id.next_button);
+/*        mNextButton = (Button) findViewById(R.id.next_button);
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCurrentIndex=(mCurrentIndex+1); /* %mQuestionBank.length; */
-                if (mCurrentIndex==10) {
-                    int mScore= (int) (mCurrentScore * 100f) / mQuestionBank.length;
-                    Toast.makeText(QuizActivity.this, "Total Questions:" + Integer.toString(mQuestionBank.length) + " , Number Correct:" +
-                            Integer.toString(mCurrentScore) + " , Percentage Correct:" + String.valueOf(mScore) + "%", Toast.LENGTH_LONG).show();
-                    mCurrentIndex=0;
-                    mCurrentScore=0;
-                }
-                mIsCheater = false;
-                updateQuestion();
-                togglebutton();
-
+                performNextAction();
             }
         });
-
-        mPreviousButton = (Button) findViewById(R.id.previous_button);
+*/
+/*        mPreviousButton = (Button) findViewById(R.id.previous_button);
         mPreviousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,7 +168,7 @@ public class QuizActivity extends AppCompatActivity {
 
             }
         });
-
+*/
         updateQuestion();
     }
 
@@ -216,4 +208,32 @@ public class QuizActivity extends AppCompatActivity {
 
     }
 
-}}
+}
+    public void showOKDialog(String title, String message) {
+
+        // setup the alert builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(message);
+
+        // add a button
+        builder.setPositiveButton("OK", null);
+        // create and show the alert dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void performNextAction() {
+        mCurrentIndex=(mCurrentIndex+1); /* %mQuestionBank.length; */
+        if (mCurrentIndex==10) {
+            int mScore= (int) (mCurrentScore * 100f) / mQuestionBank.length;
+            showOKDialog("Winning!!!", "Total Questions:" + Integer.toString(mQuestionBank.length) + " , Number Correct:" +
+                    Integer.toString(mCurrentScore) + " , Percentage Correct:" + String.valueOf(mScore) + "%");
+            mCurrentIndex=0;
+            mCurrentScore=0;
+        }
+        mIsCheater = false;
+        updateQuestion();
+        togglebutton();
+    }
+}
