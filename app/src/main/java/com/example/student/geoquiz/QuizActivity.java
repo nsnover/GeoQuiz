@@ -27,6 +27,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button mCheatButton;
     private Button mCheckScore;
     private TextView mQuestionTextView;
+    private TextView mScoreTextView;
     private Question[] mQuestionBank = new Question[]{
             new Question(R.string.question_australia, true),
             new Question(R.string.question_oceans, true),
@@ -111,6 +112,8 @@ public class QuizActivity extends AppCompatActivity {
 
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
         updateQuestion();
+
+        mScoreTextView = (TextView) findViewById(R.id.score_text_view);
 
         mCheatButton = (Button) findViewById(R.id.cheat_button);
         mCheatButton.setOnClickListener(new View.OnClickListener() {

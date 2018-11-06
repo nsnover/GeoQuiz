@@ -15,12 +15,11 @@
         tools:layout_editor_absoluteY="325dp" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/score_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
+        android:text="@+id/score_text_view"
         tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="165dp" />
 </android.support.constraint.ConstraintLayout>
