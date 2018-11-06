@@ -113,7 +113,6 @@ public class QuizActivity extends AppCompatActivity {
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
         updateQuestion();
 
-        mScoreTextView = (TextView) findViewById(R.id.score_text_view);
 
         mCheatButton = (Button) findViewById(R.id.cheat_button);
         mCheatButton.setOnClickListener(new View.OnClickListener() {
@@ -131,7 +130,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start CheckScore
-
+                startActivity(new Intent(QuizActivity.this, CheckScore.class));
             }
         });
 
@@ -233,10 +232,8 @@ public class QuizActivity extends AppCompatActivity {
     private void mPerformNextAction() {
         mCurrentIndex = (mCurrentIndex + 1); /* %mQuestionBank.length; */
         if (mCurrentIndex == 10) {
-            int mScore = (int) (mCurrentScore * 100f) / mQuestionBank.length;
             mShowOKDialog("Score", mGetScoreText());
-            mCurrentIndex = 0;
-            mCurrentScore = 0;
+            mReset();
         }
         mIsCheater = false;
         updateQuestion();
@@ -245,8 +242,10 @@ public class QuizActivity extends AppCompatActivity {
 
     private String mGetScoreText() {
         int mScore= (int) (mCurrentScore * 100f) / mQuestionBank.length;
+        mScoreTextView.setText(mScore);
         return "Total Questions:" + Integer.toString(mQuestionBank.length) + " , Number Correct:" +
                 Integer.toString(mCurrentScore) + " , Percentage Correct:" + String.valueOf(mScore) + "%, Your Letter Grade is: " + mGetLetterGrade(mScore);
+
     }
 
     private String mGetLetterGrade(int pScore) {
@@ -260,6 +259,11 @@ public class QuizActivity extends AppCompatActivity {
             return "B";
         else
             return "A";
+    }
+
+    private void mReset() {
+        mCurrentIndex = 0;
+        mCurrentScore = 0;
     }
 
 }

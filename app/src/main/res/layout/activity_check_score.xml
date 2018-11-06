@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".CheckScore">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:text="@string/score_text_view"/>
 
     <Button
         android:id="@+id/reset_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/reset_button"
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="325dp" />
+        android:text="@string/reset_button"/>
 
-    <EditText
-        android:id="@+id/score_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:text="@+id/score_text_view"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="165dp" />
-</android.support.constraint.ConstraintLayout>
+
+</LinearLayout>
