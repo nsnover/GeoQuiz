@@ -6,4 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".CheckScore">
 
+    <Button
+        android:id="@+id/reset_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reset_button"
+        tools:layout_editor_absoluteX="147dp"
+        tools:layout_editor_absoluteY="325dp" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="84dp"
+        tools:layout_editor_absoluteY="165dp" />
 </android.support.constraint.ConstraintLayout>

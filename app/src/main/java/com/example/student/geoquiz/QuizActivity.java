@@ -15,10 +15,10 @@ public class QuizActivity extends AppCompatActivity {
 
     private static final String MYTAG = "quizactivity";
     private static final String KEY_INDEX = "index";
-    private static final int REQUEST_CODE_CHEAT= 0;
-    private static final String SCORE_INDEX= "score";
-    private static final String TRUE_STATE= "truestate";
-    private static final String FALSE_STATE= "falsestate";
+    private static final int REQUEST_CODE_CHEAT = 0;
+    private static final String SCORE_INDEX = "score";
+    private static final String TRUE_STATE = "truestate";
+    private static final String FALSE_STATE = "falsestate";
 
     private Button mTrueButton;
     private Button mFalseButton;
@@ -27,7 +27,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button mCheatButton;
     private Button mCheckScore;
     private TextView mQuestionTextView;
-    private Question[] mQuestionBank=new Question[] {
+    private Question[] mQuestionBank = new Question[]{
             new Question(R.string.question_australia, true),
             new Question(R.string.question_oceans, true),
             new Question(R.string.question_mideast, false),
@@ -39,30 +39,26 @@ public class QuizActivity extends AppCompatActivity {
             new Question(R.string.question_konoha, true),
             new Question(R.string.question_tea, false)
     };
-    private int mCurrentIndex=0;
+    private int mCurrentIndex = 0;
     private boolean mIsCheater;
-    private int mCurrentScore=0;
+    private int mCurrentScore = 0;
 
 
     @Override
-    public void onSaveInstanceState (Bundle saveInstanceState) {
-        super.onSaveInstanceState (saveInstanceState);
-        saveInstanceState.putInt (KEY_INDEX, mCurrentIndex);
-        saveInstanceState.putInt (SCORE_INDEX, mCurrentScore);
+    public void onSaveInstanceState(Bundle saveInstanceState) {
+        super.onSaveInstanceState(saveInstanceState);
+        saveInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+        saveInstanceState.putInt(SCORE_INDEX, mCurrentScore);
      /*   saveInstanceState.putBoolean (TRUE_STATE, mTrueButton.isEnabled());
         saveInstanceState.putBoolean (FALSE_STATE, mFalseButton.isEnabled()); */
     }
 
 
     private void togglebutton() {
-        if (mTrueButton.isEnabled()==true)
-        {
+        if (mTrueButton.isEnabled() == true) {
             mTrueButton.setEnabled(false);
             mFalseButton.setEnabled(false);
-        }
-        else
-        if(mTrueButton.isEnabled() == false)
-        {
+        } else if (mTrueButton.isEnabled() == false) {
             mTrueButton.setEnabled(true);
             mFalseButton.setEnabled(true);
         }
@@ -108,7 +104,7 @@ public class QuizActivity extends AppCompatActivity {
             mFalseButton.setEnabled(savedInstanceState.getBoolean(FALSE_STATE)); */
         }
 
-        Log.d(MYTAG,"called onCreate");
+        Log.d(MYTAG, "called onCreate");
 
         setContentView(R.layout.activity_quiz);
 
@@ -116,17 +112,25 @@ public class QuizActivity extends AppCompatActivity {
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
         updateQuestion();
 
-        mCheatButton = (Button)findViewById(R.id.cheat_button);
+        mCheatButton = (Button) findViewById(R.id.cheat_button);
         mCheatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Start CheatActivity
-                boolean answerIsTrue=mQuestionBank[mCurrentIndex].isAnswerTrue();
-                Intent intent = CheatActivity.newIntent(QuizActivity.this,answerIsTrue);
-                startActivityForResult(intent, REQUEST_CODE_CHEAT );
+                boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+                Intent intent = CheatActivity.newIntent(QuizActivity.this, answerIsTrue);
+                startActivityForResult(intent, REQUEST_CODE_CHEAT);
             }
         });
 
+        mCheckScore = (Button) findViewById(R.id.score_button);
+        mCheckScore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start CheckScore
+
+            }
+        });
 
         mTrueButton = (Button) findViewById(R.id.true_button);
         mTrueButton.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +138,7 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 checkAnswer(true);
                 togglebutton();
-                performNextAction();
+                mPerformNextAction();
 
             }
         });
@@ -143,9 +147,9 @@ public class QuizActivity extends AppCompatActivity {
         mFalseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                       checkAnswer(false);
-                       togglebutton();
-                       performNextAction();
+                checkAnswer(false);
+                togglebutton();
+                mPerformNextAction();
             }
         });
 
@@ -186,10 +190,10 @@ public class QuizActivity extends AppCompatActivity {
             mIsCheater = CheatActivity.wasAnswerShown(data);
         }
 
-        if (requestCode==REQUEST_CODE_CHEAT) {
-            if(resultCode== Activity.RESULT_OK)
+        if (requestCode == REQUEST_CODE_CHEAT) {
+            if (resultCode == Activity.RESULT_OK)
 //                Toast.makeText(this,"You cheated",Toast.LENGTH_LONG).show();
-            Toast.makeText(this,""+data.getBooleanExtra("EXTRA_ANSWER_SHOWN",false),Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "" + data.getBooleanExtra("EXTRA_ANSWER_SHOWN", false), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -201,15 +205,15 @@ public class QuizActivity extends AppCompatActivity {
     private void checkAnswer(boolean userPressedTrue) {
         if (userPressedTrue == mQuestionBank[mCurrentIndex].isAnswerTrue()) {
             Toast.makeText(QuizActivity.this, R.string.correct_toast, Toast.LENGTH_SHORT).show();
-            mCurrentScore=(mCurrentScore+1);
-    }
-        else {
-        Toast.makeText(QuizActivity.this,R.string.incorrect_toast,Toast.LENGTH_SHORT).show();
+            mCurrentScore = (mCurrentScore + 1);
+        } else {
+            Toast.makeText(QuizActivity.this, R.string.incorrect_toast, Toast.LENGTH_SHORT).show();
+
+        }
 
     }
 
-}
-    public void showOKDialog(String title, String message) {
+    public void mShowOKDialog(String title, String message) {
 
         // setup the alert builder
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -223,17 +227,36 @@ public class QuizActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void performNextAction() {
-        mCurrentIndex=(mCurrentIndex+1); /* %mQuestionBank.length; */
-        if (mCurrentIndex==10) {
-            int mScore= (int) (mCurrentScore * 100f) / mQuestionBank.length;
-            showOKDialog("Winning!!!", "Total Questions:" + Integer.toString(mQuestionBank.length) + " , Number Correct:" +
-                    Integer.toString(mCurrentScore) + " , Percentage Correct:" + String.valueOf(mScore) + "%");
-            mCurrentIndex=0;
-            mCurrentScore=0;
+    private void mPerformNextAction() {
+        mCurrentIndex = (mCurrentIndex + 1); /* %mQuestionBank.length; */
+        if (mCurrentIndex == 10) {
+            int mScore = (int) (mCurrentScore * 100f) / mQuestionBank.length;
+            mShowOKDialog("Score", mGetScoreText());
+            mCurrentIndex = 0;
+            mCurrentScore = 0;
         }
         mIsCheater = false;
         updateQuestion();
         togglebutton();
     }
+
+    private String mGetScoreText() {
+        int mScore= (int) (mCurrentScore * 100f) / mQuestionBank.length;
+        return "Total Questions:" + Integer.toString(mQuestionBank.length) + " , Number Correct:" +
+                Integer.toString(mCurrentScore) + " , Percentage Correct:" + String.valueOf(mScore) + "%, Your Letter Grade is: " + mGetLetterGrade(mScore);
+    }
+
+    private String mGetLetterGrade(int pScore) {
+        if (pScore < 60)
+            return "F";
+        else if (pScore >= 60 && pScore < 69)
+            return "D";
+        else if (pScore >= 70 && pScore < 79)
+            return "C";
+        else if (pScore >= 80 && pScore < 89)
+            return "B";
+        else
+            return "A";
+    }
+
 }

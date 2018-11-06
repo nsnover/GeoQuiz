@@ -24,4 +24,6 @@
 
     <string name="next_button">Next</string>
     <string name="previous_button">Previous</string>
+    <string name="score_button">Check Score</string>
+    <string name="reset_button">Reset</string>
 </resources>
